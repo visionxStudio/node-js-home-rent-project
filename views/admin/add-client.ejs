@@ -1,0 +1,65 @@
+<%- include('../includes/head.ejs') %>
+
+<%- include('../includes/navigation.ejs') %>
+<div class="container">
+    <!-- Handling the errors -->
+    <% if (errorMessage) { %>
+    <div class="alert alert-<%= result %> text-center mt-2" role="alert" id="alert">
+        <%= errorMessage %>
+    </div>
+    <% } %>
+    <!-- End of handling the errors -->
+    <form action="/admin/add-client" method="POST" novalidate>
+        <div class="form-row mt-5 ">
+            <div class="form-group col-md-6">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" name="address" placeholder="Biratnagar-13"
+                value="">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="roomRent">Room Rent</label>
+                <input type="number" class="form-control" id="roomRent" name="roomRent" step="100" value="3000">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="wifi">Wi-Fi</label>
+                <input type="number" class="form-control" id="wifi" name="wifi" step="100" value="200">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="water">Water</label>
+                <input type="number" class="form-control" id="water" name="water" step="100" value="200">
+            </div>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="btn btn-dark btn-md">Add Client</button>
+    </form>
+</div>
+
+
+<script>
+    function hideAlert() {
+        const alert = document.getElementById('alert');
+        alert.classList.add("hidden");
+        console.log(alert.classList[1]);
+    };
+    try {
+        const alert = document.getElementById('alert');
+        if (alert.classList[0] === null) {} else {
+            setTimeout("hideAlert()", 4000);
+        }
+    } catch (err) {
+        alert == null
+    }
+</script>
+
+
+<%- include('../includes/end.ejs') %>

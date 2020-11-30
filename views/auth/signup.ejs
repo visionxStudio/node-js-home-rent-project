@@ -1,0 +1,80 @@
+<%- include('../includes/head.ejs') %>
+<!-- Font Icon -->
+<link rel="stylesheet" href="/extras/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="/extras/css/style.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <div class="main">
+        <section class="signup">
+            <div class="container">
+                <!-- Handling the errors -->
+                <% if (errorMessage) { %>
+                <div class="alert alert-<%= result %> text-center" role="alert" id="alert">
+                    <%= errorMessage %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+                <!-- End of handling the errors -->
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form" action='/signup' novalidate>
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="username" id="username"
+                                placeholder="Your username" value="<%= oldInput.username %>" />
+                        </div>
+                        <div class=" form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"
+                                value="<%= oldInput.email %>" />
+                        </div>
+                        <div class=" form-group">
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"
+                                value="<%= oldInput.password %>" />
+                            <span toggle=" #password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="confirmPassword" id="confirmPassword"
+                                placeholder="Repeat your password" />
+                                <span toggle=" #confirmPassword" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="submit" name="submit" id="submit" class="login100-form-btn" value="Sign up" />
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a href="/login" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function hideAlert() {
+            const alert = document.getElementById('alert');
+            alert.classList.add("hidden");
+            console.log(alert.classList[1]);
+            if(alert.classList[1] === 'alert-success'){
+                window.location = '/login'
+            }
+        };
+        try {
+            const alert = document.getElementById('alert');
+            if (alert.classList[0] === null) {} else {
+                setTimeout("hideAlert()", 3000);
+            }
+        } catch (err) {
+            alert == null
+        }
+    </script>
+
+    <!-- JS -->
+    <script src="/extras/vendor/jquery/jquery.min.js"></script>
+    <script src="/extras/js/main.js"></script>
+    <%- include('../includes/end.ejs') %>
